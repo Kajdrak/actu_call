@@ -1,0 +1,90 @@
+<html>
+<head>
+  <style>
+    .form-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 50%;
+      margin: 0 auto;
+    }
+
+    .form-control {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      margin: 10px 0;
+    }
+
+    .form-control label {
+      width: 50%;
+      text-align: right;
+      padding-right: 10px;
+    }
+
+    .form-control input {
+      width: 50%;
+      height: 30px;
+      border: 1px solid gray;
+      border-radius: 5px;
+      padding: 0 10px;
+    }
+
+    .result {
+      font-size: 24px;
+      font-weight: bold;
+      margin: 20px 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="form-container">
+    <form>
+      <div class="form-control">
+        <label for="start-value">Valeur de départ :</label>
+        <input type="number" id="start-value" />
+      </div>
+      <div class="form-control">
+        <label for="target-value">Valeur cible :</label>
+        <input type="number" id="target-value" />
+      </div>
+    </form>
+    <div class="result">Résultat : <span id="result"></span></div>
+  </div>
+  <script>
+
+
+    function updateResult() {
+      const startValue = document.getElementById("start-value").value;
+      const targetValue = document.getElementById("target-value").value;
+		const now = new Date();
+		const hours = now.getHours();
+		let minutes = now.getMinutes();
+		const totalMinutes = hours * 60 + minutes;
+		const totalSeconds = totalMinutes * 60;
+		if (minutes > 30) {
+			minutes = minutes - 30;
+			}
+		const minutesIntoInterval = minutes;
+		const secondsIntoInterval = minutesIntoInterval * 60;
+		const startOfTimeslot = totalSeconds - secondsIntoInterval;
+
+		const moment = totalSeconds - startOfTimeslot;
+		console.log(`moment: ${moment}`);
+		const timeslotDuration = 1800; // durée du créneau en secondes
+
+      const result = ((((targetValue * 1000 - startValue * 1000) / timeslotDuration ) * moment) + startValue * 1000) / 1000;
+	  	  	    console.log(`targetValue: ${targetValue}`);
+			console.log(`startValue: ${startValue}`);
+					console.log(`timeslotDuration: ${timeslotDuration}`);
+										console.log(`moment: ${moment}`);
+										console.log(`result: ${result}`);
+      document.getElementById("result").innerHTML = Math.round(result);
+    }
+
+
+
+    setInterval(updateResult, 1000); // appelle la fonction updateResult toutes les secondes
+  </script>
+</body>
+</html>
