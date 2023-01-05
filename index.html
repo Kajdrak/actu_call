@@ -74,11 +74,7 @@
 		const timeslotDuration = 1800; // durée du créneau en secondes
 
       const result = ((((targetValue * 1000 - startValue * 1000) / timeslotDuration ) * moment) + startValue * 1000) / 1000;
-	  	  	    console.log(`targetValue: ${targetValue}`);
-			console.log(`startValue: ${startValue}`);
-					console.log(`timeslotDuration: ${timeslotDuration}`);
-										console.log(`moment: ${moment}`);
-										console.log(`result: ${result}`);
+
       document.getElementById("result").innerHTML = Math.round(result);
     }
 
